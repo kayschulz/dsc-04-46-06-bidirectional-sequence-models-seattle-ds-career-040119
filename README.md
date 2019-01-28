@@ -13,7 +13,7 @@ You will be able to:
 * Identify the types of problems Bidirectional approaches are best suited for
 * Build and train Bidirectional RNN models
 
-### The Problem of Sequences 
+## The Problem of Sequences 
 
 Consider the following sentences:
 
@@ -26,7 +26,7 @@ Now, since this is being fed into an RNN, this means that the model is making it
 
 This is where Bidirectional RNNs come in!
 
-### Bidirectional RNNs
+## Bidirectional RNNs
 
 Luckily, there is an architecture that can solve this sort of problem quite easily--a **_Bidirectional RNN_**! A Bidirectional RNN is just like a regular RNN, but with a twist--half of the neurons start by at the beginnig of the data and work towards the end one step at a time, while the other half start at the end of the data and work towards the beginning at the same pace! 
 
@@ -36,11 +36,11 @@ Consider the diagram below:
 
 All of the boxes in black are the unrolled time steps that we would expect to see in a vanilla RNN for a model that tackles something like Named Entity Recognition. The first box is the model starting with the word 'He' and making a prediction, the second is the model making a prediction on the word "She", and so on. The red boxes are where things get interesting.  Whereas the black boxes should be read from left to right (as denoted by the direction of the black arrows connecting each time step), the red boxes should be read from right to left.  During time step 1, the first (left-most) black box is making a prediction on the word "He", while the first (right-most) red box is making a prediction on the word "president". When the model moves onto time step 2, the next black box represents the model making a prediction on "said", while the the next red box makes a prediction on "favorite", and so on. Note that although all the red boxes are moving from right to left, this is still part of the forward propagation step! The model makes it's predictions by using a formula to combine both of the activations from the forward-in-time and the backward-in-time neurons at each time step--this is actually a hyperparameter that keras lets us set when creating bidirectional layers. Thus, our model will easily be able to get the task above correct and recognize "Teddy" as a Named Entity, because although the forward-in-time neurons won't know what to do with the word "Teddy" since they haven't seen the word "Roosevelt" yet, the backward-in-time neurons _have_ seen this word already, and thus know enough to make the correct prediction for the word "Teddy"!
 
-#### Pros and Cons
+### Pros and Cons
 
 Bidirectional RNNs excel at things like speech recognition and other NLP tasks. Typically, Bidirectional RNN Layers combined with LSTM cells are a great first place to start when tackling NLP tasks. However, they do come with the drawback of increased complexity and computational requirements, since each bidirectional layer is essentially double the size, since an equal amount of neurons are needed for each direction. This means that if we create a bidirectional layer of 50 LSTM neurons, then our model actually has 100 LSTM cells for that layer--50 for front-to-back, and 50 for back-to-front. This size increase can definitely slow down training times, because using things like LSTM cells are already quite time intensive. However, when it comes to performance with things like human speech, bidirectional models are often best-in-class!
 
-### Using Bidirectional Layers in Our Models
+## Using Bidirectional Layers in Our Models
 
 Like all things, Keras makes it really simple for us to include a bidirectional layer in our model. Consider the following code snippet from the [Keras Documentation on Bidirectional Layers](https://keras.io/layers/wrappers/):
 
@@ -61,6 +61,6 @@ As we can see from the code above, to include a Bidirectional Layer, all we need
 
 In the next lab, we'll put this newfound knowledge of bidirectional layers to use to build a model that can identify toxic comments and hate speech from real-world comment data sourced from Wikipedia!
 
-# Summary
+## Summary
 
 In this lesson, we learned about **_Bidirectional RNNs_** and the types of problems they are best suited for!
